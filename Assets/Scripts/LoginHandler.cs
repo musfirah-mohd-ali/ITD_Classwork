@@ -14,7 +14,7 @@ public class LoginHandler : MonoBehaviour
         if (passwordInput.text == correctPassword)
         {
             Debug.Log("Password correct! Loading scene...");
-            SceneManager.LoadScene("SampleScene"); 
+            SceneManager.LoadScene("BasicScene CA4"); 
         }
         else
         {
