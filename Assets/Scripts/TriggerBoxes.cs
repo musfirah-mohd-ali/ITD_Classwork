@@ -2,35 +2,28 @@ using UnityEngine;
 
 public class TriggerBoxes : MonoBehaviour
 {
-    [Header("Sequence Settings")]
+    [Header("Spawning")]
     public GameObject nextBoxPrefab;
-    public Transform spawnLocation;
+    public Transform boxSpawnLocation;
 
-    [Header("Final Step Settings")]
-    public GameObject[] teleportersToEnable;
+    [Header("Teleportation Setup")]
+    public GameObject teleporterPrefab;
+    public Transform teleporterSpawnLocation;
     public GameObject congratsCanvas;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Trigger box reached: " + gameObject.name);
-            if (nextBoxPrefab != null && spawnLocation != null)
+            if (nextBoxPrefab != null && boxSpawnLocation != null)
             {
-                Instantiate(nextBoxPrefab, spawnLocation.position, spawnLocation.rotation);
+                Instantiate(nextBoxPrefab, boxSpawnLocation.position, boxSpawnLocation.rotation);
             }
-            if (nextBoxPrefab == null)
+            if (teleporterPrefab != null && teleporterSpawnLocation != null)
             {
-                Debug.Log("Tutorial complete! Enabling teleporters and UI.");
-                foreach (GameObject tele in teleportersToEnable)
-                {
-                    if (tele != null) tele.SetActive(true);
-                }
-                if (congratsCanvas != null)
-                {
-                    congratsCanvas.SetActive(true);
-                }
+                Instantiate(teleporterPrefab, teleporterSpawnLocation.position, teleporterSpawnLocation.rotation);
             }
+            if (congratsCanvas != null) congratsCanvas.SetActive(true);
             Destroy(gameObject);
         }
     }
