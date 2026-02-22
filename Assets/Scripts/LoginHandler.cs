@@ -10,10 +10,7 @@ public class LoginHandler : MonoBehaviour
 
     public void OnLoginButtonPressed()
     {
-        // 1. Check if the button click registers
         Debug.Log("Button pressed!"); 
-
-        // 2. Check the input comparison
         if (passwordInput.text == correctPassword)
         {
             Debug.Log("Password correct! Loading scene...");
@@ -24,5 +21,11 @@ public class LoginHandler : MonoBehaviour
             Debug.Log("Password incorrect. Showing error message.");
             errorMessage.SetActive(true);
         }
+    }
+
+    public void CloseErrorPanel()
+    {
+        Debug.Log("Closing error panel.");
+        errorMessage.SetActive(false);
     }
 }
