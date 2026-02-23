@@ -126,6 +126,7 @@ MonoBehaviour:
   nextTeleportPrefab: {fileID: 0}
   nextSpawnLocation: {fileID: 0}
   congratsCanvasPrefab: {fileID: 5034641071044824704, guid: f5ba9afbaa1bdb340869f7f0045afd21, type: 3}
+  spawnPoint: {fileID: 5628424008959150683, guid: eb1db42d94b835a489ca1a0c668f0c8d, type: 3}
 --- !u!114 &358461633461841555
 MonoBehaviour:
   m_ObjectHideFlags: 0

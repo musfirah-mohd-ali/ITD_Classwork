@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement; // Necessary to load scenes
 
 public class TeleportSequence : MonoBehaviour
 {
@@ -8,8 +9,13 @@ public class TeleportSequence : MonoBehaviour
     public Transform nextSpawnLocation;
 
     [Header("UI Reference")]
-    public GameObject congratsCanvasPrefab; // Drag your new Canvas Prefab here
-    private GameObject instantiatedUI;      // Used to track the UI once spawned
+    public GameObject congratsCanvasPrefab; 
+    public Transform spawnPoint;           
+    private GameObject instantiatedUI;
+    public void LoadNextScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -17,21 +23,18 @@ public class TeleportSequence : MonoBehaviour
         {
             if (isFinalStep)
             {
-                Debug.Log("Final step: Spawning UI...");
-
-                // Check if we already spawned it so we don't spawn 100 copies
-                if (instantiatedUI == null && congratsCanvasPrefab != null)
+                if (instantiatedUI == null && congratsCanvasPrefab != null && spawnPoint != null)
                 {
-                    instantiatedUI = Instantiate(congratsCanvasPrefab);
-                    
-                    // If set to "Screen Space - Overlay", it will appear flat on the screen
-                    Debug.Log("UI spawned successfully!");
+                    instantiatedUI = Instantiate(congratsCanvasPrefab, spawnPoint.position, spawnPoint.rotation);
+                    var yesButton = instantiatedUI.GetComponentInChildren<UnityEngine.UI.Button>();
+                    if (yesButton != null)
+                    {
+                        yesButton.onClick.AddListener(() => LoadNextScene("BasicScene CA5"));
+                    }
                 }
             }
             else
             {
-                Debug.Log("Spawning next area.");
-                // Spawning Logic:
                 if (nextTeleportPrefab != null && nextSpawnLocation != null)
                 {
                     Instantiate(nextTeleportPrefab, nextSpawnLocation.position, nextSpawnLocation.rotation);
